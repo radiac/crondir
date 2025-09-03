@@ -17,32 +17,28 @@ or run directly using [uv](https://docs.astral.sh/uv/) (recommended)::
 Basic usage
 -----------
 
-Add a cron snippet:
+Add a cron snippet::
 
-```bash
-uvx crondir add path/to/definition
-```
+  crondir add path/to/definition
 
-Remove a cron snippet:
+Remove a cron snippet::
 
-```bash
-uvx crondir remove definition
-```
+  crondir remove definition
 
-Build the crontab from current definitions:
+List installed snippets::
 
-```bash
-uvx crondir build
-```
+  crondir list
 
-Or if you don't have or want uv installed, you can use `pip`:
+Build the crontab from current snippets::
 
-```bash
-pip install crondir
-crondir add path/to/definition
-crondir remove path/to/definition
-crondir build
-```
+  crondir build
+
+Or you may find it easier to skip the install step and run it using uv::
+
+  uvx crondir add path/to/definition
+  uvx crondir remove path/to/definition
+  uvx crondir list
+  uvx crondir build
 
 
 For full command line options, see :doc:`commands`.

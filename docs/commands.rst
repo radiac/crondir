@@ -11,7 +11,7 @@ The ``crondir`` command supports the following operations:
 ``crondir build``
 =================
 
-Build the crontab from tasks in the cron dir::
+Build the crontab from snippets in the cron dir::
 
     crondir build [--cron-dir=<path>] [--no-backup] [--backup-path=<path>]
 
@@ -44,6 +44,18 @@ Instead of ``~/.cron.d/``, use the cron dir ``~/cron_tasks/``::
     crondir build --cron-dir=~/cron_tasks/
 
 
+``crondir list``
+================
+
+List installed snippets:
+
+    crondir list [--cron-dir=<path>]
+
+where:
+
+* ``--cron-dir=<path>`` - override the path to the cron dir, from ``~/.cron.d/``
+
+
 ``crondir add``
 ===============
 
@@ -54,8 +66,8 @@ Add a cron snippet::
 where:
 
 * ``<source>`` - the source file to install.
-* ``<cron-name>`` - optional filename to give it in ``~/.cron.d/``. If not specified,
-  will use the same filename as ``source``.
+* ``<cron-name>`` - optional snippet name - the filename to give it in ``~/.cron.d/``.
+  If not specified, will use the same filename as ``source``.
 * ``--force`` - if the target already exists, overwrite it. If this is not set and it
   already exists, it will raise an error.
 * ``--cron-dir=<path>`` - override the path to the cron dir, from ``~/.cron.d/``
@@ -96,10 +108,9 @@ Remove a cron snippet from the cron dir::
 
 where:
 
-* ``<cron-name>`` - the cron name from ``crondir add`` - in other words, the filename in
-  ``~/.cron.d/``.
-  will use the same filename as ``source``.
-* ``--force`` - if the target does not exists, don't report an error.
+* ``<cron-name>`` - the snippet name from ``crondir add`` - in other words, the filename
+  in ``~/.cron.d/``.
+* ``--force`` - if the target does not exists, don't exit with an error.
 * ``--cron-dir=<path>`` - override the path to the cron dir, from ``~/.cron.d/``
 
 You will need to run ``crondir build`` after this for your change to take effect.
@@ -118,6 +129,14 @@ Try to remove ``mytask``, but don't fail if it isn't present::
 
     crondir remove mytask --force
     crondir build
+
+Failure state may be useful when chaining commands::
+
+    # Only rebuild if the task was removed
+    crondir remove mytask && crondir build
+
+    # Rebuild whether it was removed or not
+    crondir remove mytask --force && crondir build
 
 Instead of ``~/.cron.d/``, use the cron dir ``~/cron_tasks/``::
 

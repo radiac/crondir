@@ -33,6 +33,6 @@ You can use crondir from your Python code
 API reference
 =============
 
-.. autoclass:: crondir.Crondir
+.. autoclass:: crondir.crondir.Crondir
 	:members:
 	:show-inheritance:

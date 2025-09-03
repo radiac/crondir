@@ -161,6 +161,8 @@ class Crondir:
         dest_file = self.path / cron_name
         if dest_file.exists() and not force:
             raise CrondirError(f"{dest_file} already exists. Use --force to overwrite.")
+        if dest_file.name.startswith("."):
+            raise CrondirError(f"{dest_file} cannot start with a period.")
 
         # Create cron dir - only place this happens
         if not self.path.exists():
