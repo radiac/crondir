@@ -9,7 +9,7 @@ dynamic = ["version"]
 authors = [
     { name="Richard Terry", email="code@radiac.net" },
 ]
-license = "BSD"
+license = "BSD-3-Clause"
 readme = "README.md"
 classifiers = [
     "Development Status :: 4 - Beta",
