@@ -90,7 +90,7 @@ def test_add_file__already_exists_with_force__is_added(crondir_instance, tmp_pat
 
 
 def test_add_string__is_added(crondir_instance):
-    added_file = crondir_instance.add_string(SAMPLE, cron_name="test_cron")
+    added_file = crondir_instance.add_string(SAMPLE, snippet="test_cron")
     assert added_file.exists()
     assert added_file.read_text() == SAMPLE
 

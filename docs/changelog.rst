@@ -2,6 +2,14 @@
 Changelog
 =========
 
+0.3.0 - 2025-09-04
+------------------
+
+Change:
+
+* Rename `cron_name` parameter to `snippet` for consistency - affects API
+
+
 0.2.0 - 2025-09-03
 ------------------
 

@@ -139,7 +139,7 @@ class Crondir:
         self,
         source_file: Path | str,
         *,
-        cron_name: str | None = None,
+        snippet: str | None = None,
         force: bool = False,
     ) -> Path:
         """
@@ -148,7 +148,7 @@ class Crondir:
         Args:
             source_file (Path | str): The path of the cron definition to add.
             force (bool): If False, raise an error if the destination file exists.
-            cron_name (str | None): The name for the file in the cron_dir. If not set,
+            snippet (str | None): The name for the file in the cron_dir. If not set,
                 use the current filename.
         """
         source_file = Path(source_file)
@@ -156,9 +156,9 @@ class Crondir:
             raise CrondirError(f"File {source_file} not found")
 
         # Find cron dir and destination file path
-        if not cron_name:
-            cron_name = source_file.name
-        dest_file = self.path / cron_name
+        if not snippet:
+            snippet = source_file.name
+        dest_file = self.path / snippet
         if dest_file.exists() and not force:
             raise CrondirError(f"{dest_file} already exists. Use --force to overwrite.")
         if dest_file.name.startswith("."):
@@ -174,20 +174,20 @@ class Crondir:
     def add_string(
         self,
         *contents: str,
-        cron_name: str | None,
+        snippet: str | None,
         force: bool = False,
     ) -> Path:
         """
         Add a cron snippet string to the cron dir under the specified name
         """
-        with tempfile.NamedTemporaryFile(mode="w") as snippet:
-            snippet.write("\n".join(contents))
-            snippet.flush()
-            return self.add_file(snippet.name, force=force, cron_name=cron_name)
+        with tempfile.NamedTemporaryFile(mode="w") as temp_file:
+            temp_file.write("\n".join(contents))
+            temp_file.flush()
+            return self.add_file(temp_file.name, force=force, snippet=snippet)
 
     def remove(
         self,
-        cron_name: str,
+        snippet: str,
         *,
         force: bool = False,
     ) -> bool:
@@ -198,7 +198,7 @@ class Crondir:
 
             bool: True if a snippet was removed, False if it didn't exist
         """
-        target_file = self.path / cron_name
+        target_file = self.path / snippet
         if not target_file.exists():
             if not force:
                 raise CrondirError(

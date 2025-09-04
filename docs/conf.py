@@ -7,7 +7,11 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 import re
+import sys
 from pathlib import Path
+
+# Add the project root to Python path for autodoc
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 project = "crondir"
 copyright = "2025, Richard Terry"

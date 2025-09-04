@@ -9,7 +9,7 @@ Either install using ``pip``::
 
     pip install crondir
 
-or run directly using [uv](https://docs.astral.sh/uv/) (recommended)::
+or run directly using `uv <https://docs.astral.sh/uv/>`_ (recommended)::
 
     uvx crondir <command> [<options>]
 

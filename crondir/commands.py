@@ -45,7 +45,7 @@ def build(cron_dir, no_backup, backup_path):
     type=click.Path(exists=True),
 )
 @click.argument(
-    "cron_name",
+    "snippet",
     type=str,
     default=None,
     required=False,
@@ -61,19 +61,17 @@ def build(cron_dir, no_backup, backup_path):
     default=None,
     help="Override the cron dir",
 )
-def add(source_file, cron_name, force, cron_dir):
+def add(source_file, snippet, force, cron_dir):
     """
     Add a cron snippet to the crondir dir
     """
-    cron_file = Crondir(cron_dir).add_file(
-        source_file, force=force, cron_name=cron_name
-    )
+    cron_file = Crondir(cron_dir).add_file(source_file, force=force, snippet=snippet)
     click.echo(f"Added {cron_file.name}. Rebuild with crontab build.")
 
 
 @cli.command()
 @click.argument(
-    "cron_name",
+    "snippet",
     type=str,
 )
 @click.option(
@@ -87,15 +85,15 @@ def add(source_file, cron_name, force, cron_dir):
     default=None,
     help="Override the cron dir",
 )
-def remove(cron_name, force, cron_dir):
+def remove(snippet, force, cron_dir):
     """
     Remove a cron snippet from the crondir dir
     """
-    removed = Crondir(cron_dir).remove(cron_name, force=force)
+    removed = Crondir(cron_dir).remove(snippet, force=force)
     if removed:
-        click.echo(f"Removed {cron_name}. Rebuild with crontab build.")
+        click.echo(f"Removed {snippet}. Rebuild with crontab build.")
     else:
-        click.echo(f"{cron_name} not found.")
+        click.echo(f"{snippet} not found.")
 
 
 @cli.command()
